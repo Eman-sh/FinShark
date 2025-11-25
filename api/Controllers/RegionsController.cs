@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Data;
+using api.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
@@ -25,19 +26,69 @@ namespace api.Controllers
             var regions = _context.Region.ToList();
 
             // Map Domain models to DTOs 
-
+            var regionDto = new List<RegionDto>();
+            regions.ForEach(region =>
+            {
+                regionDto.Add(new RegionDto
+                {
+                    Id = region.Id,
+                    Name = region.Name,
+                    Code = region.Code,
+                    RegionImageUrl = region.RegionImageUrl
+                });
+            });
             //return DTOs
-            return Ok(regions);
-        }//
+            return Ok(regionDto);
+        }
         [HttpGet("{id}")]
-        public IActionResult GetRegionById([FromRoute] int id)
+        public IActionResult GetRegionById([FromRoute] Guid id)
         {
-            var region = _context.Region.Find(id);
-            if (region == null)
+            var regionDomain = _context.Region.Find(id);
+
+
+            if (regionDomain == null)
             {
                 return NotFound();
             }
-            return Ok(region);
+
+            //Map Domain model to DTO
+            var regionDto = new RegionDto
+            {
+                Id = regionDomain.Id,
+                Name = regionDomain.Name,
+                Code = regionDomain.Code,
+                RegionImageUrl = regionDomain.RegionImageUrl
+            };
+            return Ok(regionDto);
+        }
+
+
+        [HttpPost]
+        public IActionResult CreateRegion([FromBody] RegionDto region)
+        {
+            //Map DTO to Domain Model
+            var regionDomain = new Models.Domain.Region
+            {
+                Id = Guid.NewGuid(),
+                Name = region.Name,
+                Code = region.Code,
+                RegionImageUrl = region.RegionImageUrl
+            };
+
+            //Add Region to Database
+            _context.Region.Add(regionDomain);
+            _context.SaveChanges();
+
+            //Map Domain Model back to DTO
+            var regionDto = new RegionDto
+            {
+                Id = regionDomain.Id,
+                Name = regionDomain.Name,
+                Code = regionDomain.Code,
+                RegionImageUrl = regionDomain.RegionImageUrl
+            };
+
+            return CreatedAtAction(nameof(GetRegionById), new { id = regionDto.Id }, regionDto);
         }
             }
 }
