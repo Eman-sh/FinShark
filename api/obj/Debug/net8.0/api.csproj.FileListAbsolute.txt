@@ -224,3 +224,5 @@
 /Users/eman/Desktop/Projects/learning/fullstack/FinShark/api/obj/Debug/net8.0/staticwebassets.build.json.cache
 /Users/eman/Desktop/Projects/learning/fullstack/FinShark/api/obj/Debug/net8.0/staticwebassets.build.endpoints.json
 /Users/eman/Desktop/Projects/learning/fullstack/FinShark/api/obj/Debug/net8.0/swae.build.ex.cache
+/Users/eman/Desktop/Projects/learning/fullstack/FinShark/api/bin/Debug/net8.0/AutoMapper.dll
+/Users/eman/Desktop/Projects/learning/fullstack/FinShark/api/bin/Debug/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
