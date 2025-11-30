@@ -15,6 +15,7 @@ namespace api.Mappings
             CreateMap<Region, RegionDto>().ReverseMap();
             CreateMap<AddRegionDto, Region>().ReverseMap();
             CreateMap<UpdateRegionDto, Region>().ReverseMap();
+            CreateMap<AddWalksDto, Walk>().ReverseMap();
         }
     }
 }
