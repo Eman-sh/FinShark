@@ -1,4 +1,5 @@
 using api.Data;
+using api.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-
+builder.Services.AddScoped<IRegionRepository, SQLRegionRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
