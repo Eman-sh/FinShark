@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using api.Models.Domain;
 using api.Models.DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class WalksController : ControllerBase
     {
         private readonly IMapper mapper;

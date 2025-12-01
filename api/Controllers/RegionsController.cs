@@ -7,13 +7,16 @@ using api.Models.Domain;
 using api.Models.DTO;
 using api.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
-    [ApiController]
+
     [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
     public class RegionsController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
@@ -47,7 +50,7 @@ namespace api.Controllers
             }
 
             //Map Domain model to DTO
-            var regionDto = mapper.Map<List<RegionDto>>(regionsDomain);
+            var regionDto = mapper.Map<RegionDto>(regionsDomain);
             return Ok(regionDto);
         }
 
